@@ -164,7 +164,7 @@ jobs:
         do
           mkdir build-$ARCH
           cd build-$ARCH
-          ../frida/configure --host=$ARCH
+          ../frida/configure --host=$ARCH --with-devkits=core
           make
           cd ..
         done
@@ -224,6 +224,12 @@ jobs:
         gzip build-android-arm64/subprojects/frida-gum/bindings/gumjs/libfrida-gumjs-1.0.a
         gzip build-android-x86/subprojects/frida-gum/bindings/gumjs/libfrida-gumjs-1.0.a
         gzip build-android-x86_64/subprojects/frida-gum/bindings/gumjs/libfrida-gumjs-1.0.a
+        
+        # Package frida-core devkits
+        tar -czf florida-core-devkit-android-arm.tar.gz -C build-android-arm/subprojects/frida-core/src/devkit .
+        tar -czf florida-core-devkit-android-arm64.tar.gz -C build-android-arm64/subprojects/frida-core/src/devkit .
+        tar -czf florida-core-devkit-android-x86.tar.gz -C build-android-x86/subprojects/frida-core/src/devkit .
+        tar -czf florida-core-devkit-android-x86_64.tar.gz -C build-android-x86_64/subprojects/frida-core/src/devkit .
         
 
     - name: Upload android arm frida-server for Florida
@@ -384,4 +390,44 @@ jobs:
         upload_url: '${{ steps.checkReleaseVersion.outputs.upload_url }}'
         asset_path: '${{ github.workspace }}/build-android-x86_64/subprojects/frida-gum/bindings/gumjs/libfrida-gumjs-1.0.a.gz'
         asset_name: 'florida-gumjs-${{ needs.check_version.outputs.FRIDA_VERSION }}-android-x86_64.a.gz'
+        asset_content_type: application/octet-stream
+
+    - name: Upload android arm frida-core devkit for Florida
+      uses: actions/upload-release-asset@v1.0.2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: '${{ steps.checkReleaseVersion.outputs.upload_url }}'
+        asset_path: '${{ github.workspace }}/florida-core-devkit-android-arm.tar.gz'
+        asset_name: 'florida-core-devkit-${{ needs.check_version.outputs.FRIDA_VERSION }}-android-arm.tar.gz'
+        asset_content_type: application/octet-stream
+
+    - name: Upload android arm64 frida-core devkit for Florida
+      uses: actions/upload-release-asset@v1.0.2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: '${{ steps.checkReleaseVersion.outputs.upload_url }}'
+        asset_path: '${{ github.workspace }}/florida-core-devkit-android-arm64.tar.gz'
+        asset_name: 'florida-core-devkit-${{ needs.check_version.outputs.FRIDA_VERSION }}-android-arm64.tar.gz'
+        asset_content_type: application/octet-stream
+
+    - name: Upload android x86 frida-core devkit for Florida
+      uses: actions/upload-release-asset@v1.0.2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: '${{ steps.checkReleaseVersion.outputs.upload_url }}'
+        asset_path: '${{ github.workspace }}/florida-core-devkit-android-x86.tar.gz'
+        asset_name: 'florida-core-devkit-${{ needs.check_version.outputs.FRIDA_VERSION }}-android-x86.tar.gz'
+        asset_content_type: application/octet-stream
+
+    - name: Upload android x86_64 frida-core devkit for Florida
+      uses: actions/upload-release-asset@v1.0.2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: '${{ steps.checkReleaseVersion.outputs.upload_url }}'
+        asset_path: '${{ github.workspace }}/florida-core-devkit-android-x86_64.tar.gz'
+        asset_name: 'florida-core-devkit-${{ needs.check_version.outputs.FRIDA_VERSION }}-android-x86_64.tar.gz'
         asset_content_type: application/octet-stream
