@@ -164,7 +164,7 @@ jobs:
         do
           mkdir build-$ARCH
           cd build-$ARCH
-          ../frida/configure --host=$ARCH -Dfrida-core:devkits=core
+          ../frida/configure --host=$ARCH -- "-Dfrida-core:devkits=core"
           make
           cd ..
         done
