@@ -226,7 +226,7 @@ jobs:
         gzip build-android-x86_64/subprojects/frida-gum/bindings/gumjs/libfrida-gumjs-1.0.a
         
         # Package frida-core devkits
-        tar -czf florida-core-devkit-android-arm.tar.gz -C build-android-arm/subprojects/frida-core/src/devkit.
+        tar -czf florida-core-devkit-android-arm.tar.gz -C build-android-arm/subprojects/frida-core/src/devkit .
         tar -czf florida-core-devkit-android-arm64.tar.gz -C build-android-arm64/subprojects/frida-core/src/devkit .
         tar -czf florida-core-devkit-android-x86.tar.gz -C build-android-x86/subprojects/frida-core/src/devkit .
         tar -czf florida-core-devkit-android-x86_64.tar.gz -C build-android-x86_64/subprojects/frida-core/src/devkit .
